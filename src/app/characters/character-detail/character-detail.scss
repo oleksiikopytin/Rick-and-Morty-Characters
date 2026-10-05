@@ -1,0 +1,36 @@
+.character-detail-header {
+  margin-bottom: 30px;
+}
+.character-detail-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.character-image {
+  flex: 0 0 auto;
+  width: 200px;
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.character-details {
+  flex: 1 1 300px;
+  min-width: 220px;
+}
+
+@media (max-width: 600px) {
+  .character-detail-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .character-image {
+    margin-bottom: 1rem;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+}

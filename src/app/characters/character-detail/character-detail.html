@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="character-detail-header">
+    <button mat-stroked-button type="button" (click)="goBack()">Back</button>
+  </div>
+  <div class="character-detail-container">
+    @let detail = state();
+    @switch (detail.kind) {
+      @case ('loading') {
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      }
+      @case ('empty') {
+        <p>Character not found</p>
+      }
+      @case ('error') {
+        <p>Error loading character</p>
+      }
+      @case ('success') {
+        <img
+          [src]="detail.data.image"
+          [alt]="detail.data.name"
+          class="character-image"
+          loading="lazy"
+          width="200"
+          height="200"
+        />
+        <div class="character-details">
+          <h1>{{ detail.data.name }}</h1>
+          <p><b>Status:</b> {{ detail.data.status }}</p>
+          <p><b>Species:</b> {{ detail.data.species }}</p>
+          @if (detail.data.type) {
+            <p><b>Type:</b> {{ detail.data.type }}</p>
+          }
+          <p><b>Gender:</b> {{ detail.data.gender }}</p>
+          <p><b>Origin:</b> {{ detail.data.origin.name }}</p>
+          <p><b>Location:</b> {{ detail.data.location.name }}</p>
+          <p><b>Created:</b> {{ detail.data.created | date: 'dd/MM/yyyy' }}</p>
+          @if (detail.episodesFailed) {
+            <p>Couldn't load episodes</p>
+          } @else if (detail.data.episodes.length) {
+            <p><b>Episodes:</b> {{ detail.data.episodes.length }}</p>
+            <mat-list>
+              @for (ep of detail.data.episodes; track ep.id) {
+                <mat-list-item>
+                  <span matListItemTitle>{{ ep.episode }}</span>
+                  <span matListItemLine>{{ ep.name }}</span>
+                  <span matListItemLine>{{ ep.air_date }}</span>
+                </mat-list-item>
+              }
+            </mat-list>
+          } @else {
+            <p>No episodes</p>
+          }
+        </div>
+      }
+    }
+  </div>
+</div>
